@@ -1,6 +1,9 @@
 
 /** Reference code: https://github.com/bpeddapudi/nodejs-basics-routes/blob/master/server.js 
  * import express */
+ var express = require('express');
+ var app = express();
+ var fs = require("fs");
 
 let carsMockData = [
     {
