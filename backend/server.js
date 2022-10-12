@@ -1,70 +1,127 @@
-
-/** Reference code: https://github.com/bpeddapudi/nodejs-basics-routes/blob/master/server.js 
+/** Reference code: https://github.com/bpeddapudi/nodejs-basics-routes/blob/master/server.js
  * import express */
- var express = require('express');
- var app = express();
- var fs = require("fs");
+ const express = require("express");
+ const cors = require("cors");
+ const app = express();
+ const bodyParser = require("body-parser");
 
-let carsMockData = [
-    {
-        "id": 1,
-        "brand": "Hyundai",
-        "name": "Ioniq",
-        "releaseYear": 2017,
-        "color": "blue"
-    },
-    {
-        "id": 2,
-        "brand": "Toyota",
-        "name": "Prius",
-        "releaseYear": 2007,
-        "color": "blue"
-    },
-    {
-        "id": 3,
-        "brand": "Chevrolet",
-        "name": "Aveo",
-        "releaseYear": 2007,
-        "color": "white"
-    },
-    {
-        "id": 4,
-        "brand": "BMW",
-        "name": "M5",
-        "releaseYear": 2017,
-        "color": "White"
-    },
-    {
-        "id": 5,
-        "brand": "Tesla",
-        "name": "S",
-        "releaseYear": 2019,
-        "color": "Black"
-    }
-]
-
-/** Create GET API. API shoudl return  const carsMockData*/
-
-
-
-
-
-/** Create POST API. Get the new car data from react. 
- *      Check if car with id exists. If Yes return 500. With message 'Car already exists'
- *      If there is no car with the id, add the new car to  carsMockData and return carsMockData as response */
-
-
-
-
-
-/** Create PUT API. 
- *  Check if car with id exists. If No return 500 with error 'No car with given id exist'. 
- *  If there is car with the requested id, update that car's data in 'carsMockData' and return 'carsMockData' */
-
-
-
-
-/** Create Delete API. 
- *  Check if car with id exists. If No return 500. With message 'No car with give id exists'
- *  If there is car with the requested id. Delete that car from 'carsMockData' and return 'carsMockData'
-*/
+ 
+ let carsMockData = [
+   {
+     id: "1",
+     brand: "Hyundai",
+     name: "Ioniq",
+     releaseYear: 2017,
+     color: "blue",
+   },
+   {
+     id: "2",
+     brand: "Toyota",
+     name: "Prius",
+     releaseYear: 2007,
+     color: "blue",
+   },
+   {
+     id: "3",
+     brand: "Chevrolet",
+     name: "Aveo",
+     releaseYear: 2007,
+     color: "white",
+   }
+ ];
+ 
+ // TO SUPPORT CORS.
+ app.use(cors());
+ app.use(
+   bodyParser.urlencoded({
+     extended: true,
+   })
+ );
+ 
+ /**bodyParser.json(options)
+  * Parses the text as JSON and exposes the resulting object on req.body.
+  */
+ app.use(bodyParser.json());
+ 
+ /** Create GET API. API shoudl return  const carsMockData*/
+ app.get("/", function (req, res) {
+   res.send(`<h1 style="text-align:center">Cars Data</h1>`);
+ });
+ 
+ app.get("/cars-data", function (req, res) {
+   res.send(carsMockData);
+ });
+  
+ const server = app.listen(8080, function () {
+   console.log(`App listening at http://127.0.0.1:8080/`);
+ });
+ 
+ app.post("/save", (req, res) => {
+   const newCarData = req.body;
+   let resVal = {};
+ 
+   carsMockData.map((car, i) => {
+     if (car.id === newCarData.id) {
+         carsMockData[i] = newCarData;
+         resVal = {
+           status: 200,
+           message: "new car data updated",
+           res: carsMockData,
+       }
+     }
+   });
+ 
+   if (!carsMockData.some((carData) => carData.id === newCarData.id)) {
+     // Add car to the carsMockData
+     carsMockData.push(newCarData);
+     resVal = {
+       status: 200,
+       message: "new car added",
+       res: carsMockData,
+     };
+   }
+ 
+   res.json(resVal);
+ });
+ 
+ // REST API to edit car data in carsMockData
+ app.put("/edit", (req, res) => {
+   const carIdToEdit = req.body.id;
+   let resVal = {
+     status: 500,
+     message: "Car not found",
+   };
+   const carToEdit = carsMockData.filter(
+     (cardData) => cardData.id === carIdToEdits
+   );
+ 
+   if (carToEdit) {
+     resVal = {
+       status: 200,
+       res: carToEdit,
+     };
+   }
+ 
+   res.json(resVal);
+ });
+ 
+ // REST API to delete car data from carsMockData
+ app.delete("/delete", (req, res) => {
+   const carIdToDelete = req.body.id;
+   let resVal = {};
+   const dataLength = carsMockData.length;
+ 
+   carsMockData = carsMockData.filter((carData) => carData.id !== carIdToDelete);
+ 
+   if (carsMockData.length === dataLength) {
+     resVal = { status: 500, message: "item does not exist" };
+   } else {
+     resVal = {
+       status: 200,
+       message: " deleted woHooooooooõ",
+       res: carsMockData,
+     };
+   }
+ 
+   res.json(resVal);
+ });
