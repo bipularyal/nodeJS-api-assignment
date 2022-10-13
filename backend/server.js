@@ -80,7 +80,9 @@
        res: carsMockData,
      };
    }
- 
+   
+   console.log(newCarData);
+   console.log(carsMockData);
    res.json(resVal);
  });
  

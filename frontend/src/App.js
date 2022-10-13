@@ -82,11 +82,11 @@ function Cars() {
   
   useEffect(() => {
     const fetchApi = async () => {
-      const response = await fetch("http://127.0.0.1:8081/cars-data");
+      const response = await fetch("http://127.0.0.1:8080/cars-data");
       const data = await response.json();
       setCars(data);
-    }; 
-    fetchApi();
+    };
+   fetchApi()  
   },[refresh]);
 
 
@@ -107,7 +107,6 @@ function Cars() {
             value={carFormData.id}
             onChange={handleInputChange}
             required
-            readOnly={`${updateStatus ? true : false}`}
           />
         </label>
         <label>
@@ -174,7 +173,7 @@ function Cars() {
            * How to get data from API: https://www.w3schools.com/jsref/api_fetch.asp
            * */}          
           <tbody>
-          {cars?.map((carData) => (
+          {cars.map((carData) => (
               <tr key={carData.id + 1}>
                 <td>{carData.id}</td>
                 <td>{carData.brand}</td>
