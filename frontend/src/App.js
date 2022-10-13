@@ -20,7 +20,6 @@ function Cars() {
   const [carFormData, setCarFormData] = useState(carFormInitialData);
   const [cars, setCars] = useState([]);
   const [refresh, setRefresh] = useState(false);
-  const [updateStatus, setUpdateStatus] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -149,7 +148,7 @@ function Cars() {
             required
           />
         </label>
-        <input type="submit" value={`${updateStatus ? "Update" : "Submit"}`} />
+        <input type="submit" value={`${"Submit"}`} />
       </form>
        {/** 
            * TODO: Update the code below to see any new proprties added to carFormData
