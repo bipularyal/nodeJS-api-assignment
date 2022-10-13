@@ -10,21 +10,21 @@
    {
      id: "1",
      brand: "Hyundai",
-     name: "Ioniq",
+     model: "Ioniq",
      releaseYear: 2017,
      color: "blue",
    },
    {
      id: "2",
      brand: "Toyota",
-     name: "Prius",
+     model: "Prius",
      releaseYear: 2007,
      color: "blue",
    },
    {
      id: "3",
      brand: "Chevrolet",
-     name: "Aveo",
+     model: "Aveo",
      releaseYear: 2007,
      color: "white",
    }

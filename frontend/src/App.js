@@ -122,7 +122,7 @@ function Cars() {
         <label>
           Name:
           <input
-            name="name"
+            name="model"
             type="text"
             // value={carFormData.name}
             onChange={handleInputChange}
@@ -163,6 +163,8 @@ function Cars() {
             <th>ID</th>
             <th>Car Make</th>
             <th>Car Model</th>
+            <th>Release Year</th>
+            <th>Color</th>
             <th>Edit</th>
             <th>Delete</th>
           </tr>
@@ -177,7 +179,7 @@ function Cars() {
               <tr key={carData.id + 1}>
                 <td>{carData.id}</td>
                 <td>{carData.brand}</td>
-                <td>{carData.name}</td>
+                <td>{carData.model}</td>
                 <td>{carData.releaseYear}</td>
                 <td>{carData.color}</td>
                 <td className="btn" onClick={() => handleEdit(carData.id)}>
